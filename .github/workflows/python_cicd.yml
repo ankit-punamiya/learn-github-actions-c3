@@ -1,0 +1,25 @@
+name: python_cicd
+
+on: push
+env:
+  FILE_NAME: hello.py
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+      - name: Run script
+        run: python $FILE_NAME
+  Build:
+    needs: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+      - name: Create and upload artifact
+        uses: actions/upload-artifact@v4.0.0
+        with:
+          name: hello
+          path: .
+  
